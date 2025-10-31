@@ -9,5 +9,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["celery", "-A", "worker.celery_app", "worker", "--concurrency=4", "--loglevel=info"]
+CMD ["celery", "-A", "worker.invoice_celery_app", "worker", "--concurrency=4", "--loglevel=info"]
 
