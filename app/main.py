@@ -2,8 +2,6 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 from typing import List, Dict, Any
 from worker.invoice_celery_app import invoice_celery_app, extract_invoice_task
-from worker.broker_celery_app import broker_celery_app, extract_broker_task
-
 from app.schemas import TaskStatus
 
 app = FastAPI(title="Invoice Extraction API")
@@ -14,15 +12,6 @@ async def extract_invoice(files: List[UploadFile] = File(...)):
     for file in files:
         contents = await file.read()
         task = extract_invoice_task.delay(contents, file.filename)
-        tasks.append({"task_id": task.id, "status": "PENDING", "filename": file.filename})
-    return JSONResponse(content=tasks)
-
-@app.post("/extract-broker", response_model=List[TaskStatus])
-async def extract_broker(files: List[UploadFile] = File(...)):
-    tasks = []
-    for file in files:
-        contents = await file.read()
-        task = extract_broker_task.delay(contents, file.filename)
         tasks.append({"task_id": task.id, "status": "PENDING", "filename": file.filename})
     return JSONResponse(content=tasks)
 
