@@ -25,8 +25,8 @@ invoice_celery_app.conf.update(
 )
 
 local_client = OpenAI(
-    api_key=settings.GEMINI_API_KEY,
-    base_url="http://localhost:23333/v1"
+    api_key="",
+    base_url=settings.BASE_URL
 )
 gemini_client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
