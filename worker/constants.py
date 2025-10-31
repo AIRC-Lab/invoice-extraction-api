@@ -1,4 +1,4 @@
-PROMPT = """
+PROMPT_GEMINI = """
 You are an expert in extracting information from invoices. 
 Extract the information from the invoice image provided:
 
@@ -37,3 +37,5 @@ Example JSON structure:
     ]
 }
 """
+
+PROMPT_LOCAL = "Extract useful information from the image and return the information in the format of a json object. Don't include any other text in your response."
